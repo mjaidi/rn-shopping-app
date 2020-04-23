@@ -4,11 +4,13 @@ import ReduxThunk from "redux-thunk";
 import productsReducer from "./reducers/products";
 import cartReducer from "./reducers/cart";
 import ordersReducer from "./reducers/orders";
+import authReducer from "./reducers/auth";
 
 const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
   orders: ordersReducer,
+  auth: authReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

@@ -41,9 +41,10 @@ export const fetchProducts = () => {
 };
 
 export const deleteProduct = (productId) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const auth = getState().auth;
     await fetch(
-      `https://rn-shopping-cc128.firebaseio.com/products/${productId}.json`,
+      `https://rn-shopping-cc128.firebaseio.com/products/${productId}.json?auth=${auth.token}`,
       {
         method: "DELETE",
       }
@@ -58,10 +59,12 @@ export const deleteProduct = (productId) => {
 
 export const createProduct = (title, description, imageUrl, price) => {
   // this syntax is possible thanks to redux-thunk middleware
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const auth = getState().auth;
+
     // with redux-thunk you can execute any async code you want
     const response = await fetch(
-      "https://rn-shopping-cc128.firebaseio.com/products.json",
+      `https://rn-shopping-cc128.firebaseio.com/products.json?auth=${auth.token}`,
       {
         method: "POST",
         headers: {
@@ -86,10 +89,12 @@ export const createProduct = (title, description, imageUrl, price) => {
 };
 
 export const updateProduct = (id, title, description, imageUrl) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const auth = getState().auth;
+
     // with redux-thunk you can execute any async code you want
-    await fetch(
-      `https://rn-shopping-cc128.firebaseio.com/products/${id}.json`,
+    const response = await fetch(
+      `https://rn-shopping-cc128.firebaseio.com/products/${id}.json?auth=${auth.token}`,
       {
         method: "PATCH",
         headers: {
